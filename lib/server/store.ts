@@ -43,8 +43,8 @@ const SEED_MARK = path.join(DATA_DIR, ".seed-version");
 /**
  * A fresh server starts with an empty data folder. The objects that ship with
  * the project are copied in once so the daily puzzle works from the first request.
- * When the shipped files change (seed/VERSION), they replace the stored copies;
- * objects.json is left alone because it also lists what visitors have made.
+ * When the shipped set changes (seed/VERSION), its files replace the stored
+ * copies and any new objects are added to the list.
  */
 function ensureSeed(): Promise<void> {
   return (seeded ??= (async () => {
@@ -58,7 +58,16 @@ function ensureSeed(): Promise<void> {
       if (!fresh && have === want) return;
       await fs.mkdir(FILES_DIR, { recursive: true });
       await fs.cp(path.join(SEED_DIR, "files"), FILES_DIR, { recursive: true, force: true });
-      if (fresh) await fs.copyFile(path.join(SEED_DIR, "objects.json"), OBJECTS);
+      const shipped = await readJson<TeardownObject[]>(path.join(SEED_DIR, "objects.json"), []);
+      if (fresh) {
+        await fs.writeFile(OBJECTS, JSON.stringify(shipped, null, 2));
+      } else {
+        // Add newly shipped objects without touching what visitors have made.
+        const stored = await readJson<TeardownObject[]>(OBJECTS, []);
+        const known = new Set(stored.map((o) => o.id));
+        const added = shipped.filter((o) => !known.has(o.id));
+        if (added.length) await fs.writeFile(OBJECTS, JSON.stringify([...stored, ...added], null, 2));
+      }
       await fs.writeFile(SEED_MARK, want);
     } catch {
       // No seed folder: the game falls back to practice objects.

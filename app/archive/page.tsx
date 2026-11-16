@@ -15,7 +15,7 @@ export default async function Archive() {
       <h1 className="display">Everything you can take apart</h1>
       <p className="lede">
         {made.length > 0
-          ? `${made.length} made from photos with Lux3D, plus ${objects.length - made.length} practice objects.`
+          ? `${made.length} made with Lux3D, plus ${objects.length - made.length} practice objects.`
           : "Only practice objects so far. The first object made from a photo will appear at the top."}
       </p>
 

@@ -328,5 +328,681 @@
         "ms": 154397
       }
     ]
+  },
+  {
+    "id": "obj-mwjuxvwewbw2",
+    "name": "Desk fan",
+    "source": "lux3d",
+    "partsUrl": "/api/file/obj-mwjuxvwewbw2/parts.glb",
+    "wholeUrl": "/api/file/obj-mwjuxvwewbw2/whole.glb",
+    "rig": {
+      "links": [
+        {
+          "name": "base",
+          "meshUrl": "/api/file/obj-mwjuxvwewbw2/rig/link-0.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "fan_head",
+          "meshUrl": "/api/file/obj-mwjuxvwewbw2/rig/link-2.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "blades",
+          "meshUrl": "/api/file/obj-mwjuxvwewbw2/rig/link-1.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "joints": [
+        {
+          "name": "fan_head_joint",
+          "type": "revolute",
+          "parent": "base",
+          "child": "fan_head",
+          "xyz": [
+            -0.0089,
+            0.11759999,
+            0.0405
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "lower": -0.523599,
+          "upper": 0.523599
+        },
+        {
+          "name": "blades_joint",
+          "type": "continuous",
+          "parent": "fan_head",
+          "child": "blades",
+          "xyz": [
+            0.005522,
+            0.144426,
+            0.01448
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0.027032,
+            0.000836,
+            0.999634
+          ],
+          "lower": 0,
+          "upper": 6.283185307179586
+        }
+      ]
+    },
+    "sizeMm": 450,
+    "prompt": "A white electric desk fan with a round wire cage, three blades and a round base on a short neck",
+    "motionPrompt": "The fan head tilts up and down on its neck",
+    "author": "Daily Teardown",
+    "createdAt": 1794869881390,
+    "stages": [
+      {
+        "name": "generate",
+        "label": "Text to 3D model",
+        "ms": 127649
+      },
+      {
+        "name": "split",
+        "label": "Split into parts",
+        "ms": 92223
+      },
+      {
+        "name": "animate",
+        "label": "Articulation",
+        "ms": 164427
+      }
+    ]
+  },
+  {
+    "id": "obj-mwjv6sry5h8y",
+    "name": "Rotary phone",
+    "source": "lux3d",
+    "partsUrl": "/api/file/obj-mwjv6sry5h8y/parts.glb",
+    "wholeUrl": "/api/file/obj-mwjv6sry5h8y/whole.glb",
+    "rig": {
+      "links": [
+        {
+          "name": "base",
+          "meshUrl": "/api/file/obj-mwjv6sry5h8y/rig/link-0.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "handset",
+          "meshUrl": "/api/file/obj-mwjv6sry5h8y/rig/link-2.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "dial",
+          "meshUrl": "/api/file/obj-mwjv6sry5h8y/rig/link-1.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "joints": [
+        {
+          "name": "handset_joint",
+          "type": "prismatic",
+          "parent": "base",
+          "child": "handset",
+          "xyz": [
+            0.010869,
+            0.10214482,
+            -0.030472
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "lower": 0,
+          "upper": 0.1
+        },
+        {
+          "name": "dial_joint",
+          "type": "revolute",
+          "parent": "base",
+          "child": "dial",
+          "xyz": [
+            0.015184,
+            0.06851482,
+            0.032108
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            -0.012781,
+            0.837054,
+            0.546971
+          ],
+          "lower": -2.5,
+          "upper": 0
+        }
+      ]
+    },
+    "sizeMm": 230,
+    "prompt": "A red vintage rotary dial telephone with a curved handset resting on top of the cradle",
+    "motionPrompt": "The handset lifts up off the cradle and sets back down",
+    "author": "Daily Teardown",
+    "createdAt": 1794870192124,
+    "stages": [
+      {
+        "name": "generate",
+        "label": "Text to 3D model",
+        "ms": 95296
+      },
+      {
+        "name": "split",
+        "label": "Split into parts",
+        "ms": 96831
+      },
+      {
+        "name": "animate",
+        "label": "Articulation",
+        "ms": 187080
+      }
+    ]
+  },
+  {
+    "id": "obj-mwjvdhubgi4a",
+    "name": "Scissors",
+    "source": "lux3d",
+    "partsUrl": "/api/file/obj-mwjvdhubgi4a/parts.glb",
+    "wholeUrl": "/api/file/obj-mwjvdhubgi4a/whole.glb",
+    "rig": {
+      "links": [
+        {
+          "name": "blade_lower",
+          "meshUrl": "/api/file/obj-mwjvdhubgi4a/rig/link-0.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "blade_upper",
+          "meshUrl": "/api/file/obj-mwjvdhubgi4a/rig/link-1.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "joints": [
+        {
+          "name": "blade_upper_joint",
+          "type": "revolute",
+          "parent": "blade_lower",
+          "child": "blade_upper",
+          "xyz": [
+            0.00906,
+            0.01579873,
+            0.001878
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "lower": -0.523599,
+          "upper": 0
+        }
+      ]
+    },
+    "sizeMm": 210,
+    "prompt": "A pair of large scissors with steel blades and bright orange plastic handles",
+    "motionPrompt": "The two blades open and close around the centre pivot",
+    "author": "Daily Teardown",
+    "createdAt": 1794870520163,
+    "stages": [
+      {
+        "name": "generate",
+        "label": "Text to 3D model",
+        "ms": 103475
+      },
+      {
+        "name": "split",
+        "label": "Split into parts",
+        "ms": 69696
+      },
+      {
+        "name": "animate",
+        "label": "Articulation",
+        "ms": 165514
+      }
+    ]
+  },
+  {
+    "id": "obj-mwjvkednvy1s",
+    "name": "Treasure chest",
+    "source": "lux3d",
+    "partsUrl": "/api/file/obj-mwjvkednvy1s/parts.glb",
+    "wholeUrl": "/api/file/obj-mwjvkednvy1s/whole.glb",
+    "rig": {
+      "links": [
+        {
+          "name": "body",
+          "meshUrl": "/api/file/obj-mwjvkednvy1s/rig/link-0.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "lid",
+          "meshUrl": "/api/file/obj-mwjvkednvy1s/rig/link-1.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "joints": [
+        {
+          "name": "lid_joint",
+          "type": "revolute",
+          "parent": "body",
+          "child": "lid",
+          "xyz": [
+            -0.004355,
+            0.31371788,
+            -0.204552
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            -0.999993,
+            0.003511,
+            0.000948
+          ],
+          "lower": 0,
+          "upper": 2.094
+        }
+      ]
+    },
+    "sizeMm": 600,
+    "prompt": "A wooden pirate treasure chest with a domed lid, iron bands and a brass lock",
+    "motionPrompt": "The lid swings open on its rear hinges and closes again",
+    "author": "Daily Teardown",
+    "createdAt": 1794870808602,
+    "stages": [
+      {
+        "name": "generate",
+        "label": "Text to 3D model",
+        "ms": 92490
+      },
+      {
+        "name": "split",
+        "label": "Split into parts",
+        "ms": 99841
+      },
+      {
+        "name": "animate",
+        "label": "Articulation",
+        "ms": 157241
+      }
+    ]
+  },
+  {
+    "id": "obj-mwjvqnjkp806",
+    "name": "Microwave",
+    "source": "lux3d",
+    "partsUrl": "/api/file/obj-mwjvqnjkp806/parts.glb",
+    "wholeUrl": "/api/file/obj-mwjvqnjkp806/whole.glb",
+    "rig": {
+      "links": [
+        {
+          "name": "base",
+          "meshUrl": "/api/file/obj-mwjvqnjkp806/rig/link-0.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "door",
+          "meshUrl": "/api/file/obj-mwjvqnjkp806/rig/link-1.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "joints": [
+        {
+          "name": "door_joint",
+          "type": "revolute",
+          "parent": "base",
+          "child": "door",
+          "xyz": [
+            -0.228869,
+            0.186753,
+            0.089256
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0.008762,
+            0.997263,
+            -0.073417
+          ],
+          "lower": -1.570796,
+          "upper": 0
+        }
+      ]
+    },
+    "sizeMm": 500,
+    "prompt": "A stainless steel countertop microwave oven with a glass door and a control panel on the right",
+    "motionPrompt": "The door swings open on its left hinge and closes again",
+    "author": "Daily Teardown",
+    "createdAt": 1794871289428,
+    "stages": [
+      {
+        "name": "generate",
+        "label": "Text to 3D model",
+        "ms": 92610
+      },
+      {
+        "name": "split",
+        "label": "Split into parts",
+        "ms": 91271
+      },
+      {
+        "name": "animate",
+        "label": "Articulation",
+        "ms": 136061
+      }
+    ]
+  },
+  {
+    "id": "obj-mwjw0uo40hyr",
+    "name": "Laptop",
+    "source": "lux3d",
+    "partsUrl": "/api/file/obj-mwjw0uo40hyr/parts.glb",
+    "wholeUrl": "/api/file/obj-mwjw0uo40hyr/whole.glb",
+    "rig": {
+      "links": [
+        {
+          "name": "base",
+          "meshUrl": "/api/file/obj-mwjw0uo40hyr/rig/link-0.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "screen",
+          "meshUrl": "/api/file/obj-mwjw0uo40hyr/rig/link-1.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "joints": [
+        {
+          "name": "screen_joint",
+          "type": "revolute",
+          "parent": "base",
+          "child": "screen",
+          "xyz": [
+            -0.0688,
+            0.0207585,
+            -0.0489
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            -0.999989,
+            0.0013,
+            -0.0046
+          ],
+          "lower": -0.8,
+          "upper": 1.6
+        }
+      ]
+    },
+    "sizeMm": 310,
+    "prompt": "An open silver laptop computer with a black keyboard and a dark screen",
+    "motionPrompt": "The screen folds down toward the keyboard and opens again",
+    "author": "Daily Teardown",
+    "createdAt": 1794871755757,
+    "stages": [
+      {
+        "name": "generate",
+        "label": "Text to 3D model",
+        "ms": 119569
+      },
+      {
+        "name": "split",
+        "label": "Split into parts",
+        "ms": 93091
+      },
+      {
+        "name": "animate",
+        "label": "Articulation",
+        "ms": 138172
+      }
+    ]
+  },
+  {
+    "id": "obj-mwjwb1x6z9cu",
+    "name": "Office chair",
+    "source": "lux3d",
+    "partsUrl": "/api/file/obj-mwjwb1x6z9cu/parts.glb",
+    "wholeUrl": "/api/file/obj-mwjwb1x6z9cu/whole.glb",
+    "rig": {
+      "links": [
+        {
+          "name": "base",
+          "meshUrl": "/api/file/obj-mwjwb1x6z9cu/rig/link-0.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "seat_and_backrest",
+          "meshUrl": "/api/file/obj-mwjwb1x6z9cu/rig/link-1.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "joints": [
+        {
+          "name": "seat_and_backrest_joint",
+          "type": "continuous",
+          "parent": "base",
+          "child": "seat_and_backrest",
+          "xyz": [
+            -0.012,
+            0.40480002,
+            -0.0157
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            -0.035801,
+            0.999226,
+            -0.0163
+          ],
+          "lower": 0,
+          "upper": 6.283185307179586
+        }
+      ]
+    },
+    "sizeMm": 1200,
+    "prompt": "A black office chair with armrests, a five star wheeled base and a tall backrest",
+    "motionPrompt": "The seat and backrest swivel around the centre column",
+    "author": "Daily Teardown",
+    "createdAt": 1794872004164,
+    "stages": [
+      {
+        "name": "generate",
+        "label": "Text to 3D model",
+        "ms": 89336
+      },
+      {
+        "name": "split",
+        "label": "Split into parts",
+        "ms": 91762
+      },
+      {
+        "name": "animate",
+        "label": "Articulation",
+        "ms": 125015
+      }
+    ]
   }
 ]

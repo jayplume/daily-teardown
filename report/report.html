@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Daily Teardown — project report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: "Barlow", sans-serif; color: #17302c; font-size: 23px; line-height: 1.42; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section { width: 1280px; height: 720px; padding: 56px 64px; page-break-after: always; position: relative; overflow: hidden; background: #f3f1e7; }
+  section.mat { background: #1d4a44; color: #f3f1e7;
+    background-image: linear-gradient(rgb(255 255 255 / .06) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .06) 1px, transparent 1px);
+    background-size: 40px 40px; }
+  h1, h2 { font-family: "Barlow Condensed", sans-serif; font-weight: 700; margin: 0; line-height: 1.02; }
+  h1 { font-size: 104px; }
+  h2 { font-size: 58px; margin-bottom: 24px; }
+  h3 { font-size: 21px; margin: 0 0 4px; font-weight: 600; }
+  p { margin: 0 0 14px; max-width: 62ch; }
+  .lede { font-size: 29px; max-width: 34ch; }
+  .yellow { color: #f4c430; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+  .cols.wide-right { grid-template-columns: 0.8fr 1.2fr; }
+  img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 10px 30px rgb(0 0 0 / .25); }
+  figure { margin: 0; }
+  figcaption { font-size: 17px; margin-top: 8px; opacity: .75; }
+  ol, ul { margin: 0; padding-left: 22px; }
+  li { margin-bottom: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 20px; }
+  th, td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid rgb(23 48 44 / .18); vertical-align: top; }
+  th { font-weight: 600; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; padding-right: 0; }
+  .step { display: grid; grid-template-columns: 220px 1fr; gap: 18px; padding: 9px 0; font-size: 21px; border-bottom: 1px solid rgb(23 48 44 / .18); }
+  .step b { font-weight: 600; }
+  .step span { font-size: 17px; opacity: .7; display: block; }
+  .links { font-size: 22px; }
+  .links div { margin-bottom: 12px; }
+  .links b { display: inline-block; width: 150px; font-weight: 600; }
+  .foot { position: absolute; left: 64px; bottom: 28px; font-size: 14px; opacity: .6; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 34px; font-size: 20px; }
+  .grid3 div b { display: block; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<section class="mat">
+  <div class="cols" style="align-items:center; height:100%">
+    <div>
+      <p class="yellow" style="font-size:22px; margin-bottom:18px">Manycore Aholo Global 3D AI Hackathon — project report</p>
+      <h1>Daily<br>Teardown</h1>
+      <p class="lede" style="margin-top:26px">A daily 3D puzzle. Real objects are taken apart; you rebuild them against the clock, and they come alive when you finish.</p>
+      <p style="margin-top:22px">Every object, every puzzle piece and every moving joint is made by Aholo Lux3D.</p>
+    </div>
+    <figure><img src="img/1-daily.jpg" alt="Today's puzzle: a stapler, a tin robot and a toolbox on a cutting mat"></figure>
+  </div>
+</section>
+
+<section>
+  <h2>The idea</h2>
+  <div class="cols">
+    <div>
+      <p>Lux3D can do something most 3D generators cannot: it does not stop at a shape. It can cut a model into its real parts, and it can work out which parts are joined and how they move.</p>
+      <p>We asked what those two abilities are <em>for</em> if you are not a 3D artist. Our answer is a toy everybody already understands: take a thing apart, then put it back together.</p>
+      <p>So the part split became the puzzle pieces, and the joints became the reward. When the last part clicks in, the stapler arm swings, the toolbox lid opens and the robot waves.</p>
+      <p>Everyone gets the same objects each day, like a daily word game, with a timer, a streak, a leaderboard and a link to race a friend.</p>
+    </div>
+    <figure><img src="img/2-pile.jpg" alt="Nine loose parts from three objects scattered on the mat with a running timer">
+      <figcaption>Three objects, one pile. Half the puzzle is working out which part belongs to which object.</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <h2>How Lux3D is used</h2>
+  <div class="cols wide-right">
+    <div>
+      <p>Lux3D is not a feature of this project. It is the whole content pipeline. Nothing in the daily puzzle was modelled, cut or rigged by a person.</p>
+      <p>The times on the right are the range across the ten objects on the live site, measured by the app itself and shown to players under “How it was made”.</p>
+      <p>Part split and articulation run at the same time, so a new object is playable about five to eight minutes after someone types a sentence.</p>
+    </div>
+    <div>
+      <div class="step"><b>1. Image or text to 3D</b><div>Makes the object from a photo or one sentence.<span>Lux3D G1-Turbo, GLB, predicted real-world size · about 100–135 s</span></div></div>
+      <div class="step"><b>2. Part split</b><div>Cuts the model into separate meshes. These are the puzzle pieces.<span>2 to 9 parts per object · about 70–100 s</span></div></div>
+      <div class="step"><b>3. Articulation</b><div>Returns named links and joints with axes and limits. This is the finishing animation.<span>URDF with per-link meshes · about 135–220 s</span></div></div>
+      <div class="step"><b>4. Material transfer</b><div>Optional. Repaints the object from a second photo.<span>v3.0-standard</span></div></div>
+      <div class="step" style="border:0"><b>Also used</b><div>The predicted size in the model’s metadata sets the scale of the 3D-print file players can download.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>From one sentence to a playable object</h2>
+  <div class="cols">
+    <figure><img src="img/4-made.jpg" alt="The How it was made sheet showing the prompt and the time each Lux3D step took">
+      <figcaption>Every object carries its own making-of: the prompt, each Lux3D step and how long it took.</figcaption></figure>
+    <figure><img src="img/5-make.jpg" alt="The Make your own page with photo and description options">
+      <figcaption>Anyone can add an object from a photo or a description and send the link to a friend.</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <h2>What changed along the way</h2>
+  <table>
+    <tr><th style="width:27%">What we found</th><th style="width:36%">Why it mattered</th><th>What we did</th></tr>
+    <tr><td>Part split gives 2 to 9 parts per object, usually 2 to 5.</td><td>A two-piece puzzle is over in seconds.</td><td>Benches: three objects side by side, all their parts in one pile. Today’s has 16 parts.</td></tr>
+    <tr><td>Articulation returns a URDF with one mesh per link, not an animated model.</td><td>There was no animation to press play on.</td><td>The game reads the joints and drives them itself, so every object moves the way Lux3D says it should.</td></tr>
+    <tr><td>Small parts such as screws and latches are too fiddly to place.</td><td>Players got stuck hunting for specks.</td><td>The biggest part of each object stays put; tiny parts ride along with the nearest large one.</td></tr>
+    <tr><td>Raw models are 11–19 MB, with up to 267,000 triangles.</td><td>The first live version took 35 seconds to load on a slow connection.</td><td>Textures to 1K WebP, meshes simplified to 60,000 triangles and compressed. 13.3 MB became 2.8 MB; load time fell to about 5 seconds.</td></tr>
+    <tr><td>One account builds one object at a time.</td><td>A public “make your own” could jam or drain credits.</td><td>A server queue with a visible place in line, 2 builds per visitor and 12 per day.</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Ten objects, a different pile each day</h2>
+  <div class="cols">
+    <figure><img src="img/8-bench-b.jpg" alt="A desk fan, a rotary phone and scissors on the mat"></figure>
+    <figure><img src="img/7-bench-a.jpg" alt="A treasure chest, a microwave and a laptop on the mat"></figure>
+  </div>
+  <p style="margin-top:22px; max-width:90ch">Stapler, tin robot, toolbox, desk fan, rotary phone, scissors, treasure chest, microwave, laptop and office chair. Each was made from a single sentence. The daily bench is chosen from the date, so every player in the world gets the same three.</p>
+</section>
+
+<section>
+  <h2>What a player can do</h2>
+  <div class="grid3">
+    <div><b>Daily puzzle</b>Same objects for everyone, numbered by day.</div>
+    <div><b>Three difficulties</b>5, 9 or up to 18 loose parts.</div>
+    <div><b>Mystery mode</b>On Hard, guess what the object is for a time bonus.</div>
+    <div><b>Snap to fit</b>Parts click in when they are close, with sound.</div>
+    <div><b>Hint</b>Shows where a part goes. Costs 10 seconds.</div>
+    <div><b>Reference</b>A ghost of the finished object.</div>
+    <div><b>Finishes</b>Original, clay or wireframe.</div>
+    <div><b>It moves</b>Lux3D’s joints animate when you finish.</div>
+    <div><b>Leaderboard</b>Fastest times per puzzle.</div>
+    <div><b>Streak</b>Counts the days you have played in a row.</div>
+    <div><b>Race a friend</b>A link that pits them against your saved time.</div>
+    <div><b>Post on X</b>Shares your time with the event hashtag.</div>
+    <div><b>Result card</b>A picture of your rebuilt objects and time.</div>
+    <div><b>Print the parts</b>An STL plate at the size Lux3D predicted.</div>
+    <div><b>How it was made</b>Prompt, steps and timings for each object.</div>
+    <div><b>Make your own</b>From a photo or a sentence.</div>
+    <div><b>Repaint</b>Material transfer from a second photo.</div>
+    <div><b>Shelf</b>Every object ever made, playable alone.</div>
+    <div><b>Practice objects</b>Three built-in ones, clearly labelled.</div>
+    <div><b>Phone layout</b>Plays with one thumb.</div>
+  </div>
+</section>
+
+<section>
+  <h2>It is finished enough to play today</h2>
+  <div class="cols">
+    <div>
+      <p>The demo is a live website, not a recording. Open the link and today’s puzzle loads in a few seconds.</p>
+      <p>Built with Next.js, three.js and the official Aholo SDKs. Generated files are copied to the server because Lux3D result links expire after two hours.</p>
+      <p><b>What is honest to say it is not yet:</b> scores are stored on one small server, there are no accounts, and the nickname on the leaderboard is whatever the player types.</p>
+    </div>
+    <figure><img src="img/3-done.jpg" alt="The result tag after finishing, with time, save, share and print buttons">
+      <figcaption>The result tag: save a time, race a friend, post it, or print the parts.</figcaption></figure>
+  </div>
+</section>
+
+<section class="mat">
+  <h2 class="yellow">Try it</h2>
+  <div class="links" style="margin-top:30px">
+    <div><b>Play</b>https://web-production-d732a3cc.up.railway.app</div>
+    <div><b>Source code</b>https://github.com/jayplume/daily-teardown</div>
+    <div><b>Team</b>Breakdown</div>
+    <div><b>Award tracks</b>Gaming, 3D Printing</div>
+  </div>
+  <p style="margin-top:40px; font-size:22px; max-width:48ch">Thirty seconds is enough: press <span class="yellow">Take it apart</span>, drag five parts home, and watch the objects move.</p>
+  <div class="foot">Daily Teardown · team Breakdown · built for the Manycore Aholo Global 3D AI Hackathon, November 2026</div>
+</section>
+
+</body>
+</html>
