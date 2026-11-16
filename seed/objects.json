@@ -1,0 +1,332 @@
+[
+  {
+    "id": "obj-spike",
+    "name": "Stapler",
+    "source": "lux3d",
+    "partsUrl": "/api/file/obj-spike/parts.glb",
+    "wholeUrl": "/api/file/obj-spike/whole.glb",
+    "rig": {
+      "links": [
+        {
+          "name": "base",
+          "meshUrl": "/api/file/obj-spike/rig/link-0.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "top_arm",
+          "meshUrl": "/api/file/obj-spike/rig/link-1.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "joints": [
+        {
+          "name": "top_arm_joint",
+          "type": "revolute",
+          "parent": "base",
+          "child": "top_arm",
+          "xyz": [
+            0.0622,
+            0.029137,
+            -0.0006
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "lower": -0.1,
+          "upper": 0.523599
+        }
+      ]
+    },
+    "prompt": "A red metal desk stapler",
+    "motionPrompt": "The top arm of the stapler swings open and closed",
+    "sizeMm": 150,
+    "createdAt": 1794832414404,
+    "stages": [
+      {
+        "name": "generate",
+        "label": "Text to 3D model",
+        "ms": 135000
+      },
+      {
+        "name": "split",
+        "label": "Split into parts",
+        "ms": 99000
+      },
+      {
+        "name": "animate",
+        "label": "Articulation",
+        "ms": 221000
+      }
+    ]
+  },
+  {
+    "id": "obj-spike2",
+    "name": "Tin robot",
+    "source": "lux3d",
+    "partsUrl": "/api/file/obj-spike2/parts.glb",
+    "wholeUrl": "/api/file/obj-spike2/whole.glb",
+    "rig": {
+      "links": [
+        {
+          "name": "base",
+          "meshUrl": "/api/file/obj-spike2/rig/link-2.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "arm_right",
+          "meshUrl": "/api/file/obj-spike2/rig/link-1.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "arm_left",
+          "meshUrl": "/api/file/obj-spike2/rig/link-0.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "wind_up_key",
+          "meshUrl": "/api/file/obj-spike2/rig/link-3.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "joints": [
+        {
+          "name": "arm_right_joint",
+          "type": "revolute",
+          "parent": "base",
+          "child": "arm_right",
+          "xyz": [
+            0.0292,
+            0.1169,
+            -0.0096
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0.999704,
+            0.0079,
+            -0.023
+          ],
+          "lower": -3.141593,
+          "upper": 3.141593
+        },
+        {
+          "name": "arm_left_joint",
+          "type": "revolute",
+          "parent": "base",
+          "child": "arm_left",
+          "xyz": [
+            -0.0492,
+            0.1214,
+            -0.0072
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "lower": -3.141593,
+          "upper": 3.141593
+        },
+        {
+          "name": "wind_up_key_joint",
+          "type": "continuous",
+          "parent": "base",
+          "child": "wind_up_key",
+          "xyz": [
+            0.050421,
+            0.110304,
+            -0.029815
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "lower": 0,
+          "upper": 6.283185307179586
+        }
+      ]
+    },
+    "prompt": "A vintage tin toy robot with a square head, antenna, two arms, two legs and a wind-up key on its back",
+    "motionPrompt": "Both arms swing forward and back at the shoulders",
+    "sizeMm": 230,
+    "createdAt": 1794832815471,
+    "stages": [
+      {
+        "name": "generate",
+        "label": "Text to 3D model",
+        "ms": 97000
+      },
+      {
+        "name": "split",
+        "label": "Split into parts",
+        "ms": 81000
+      },
+      {
+        "name": "animate",
+        "label": "Articulation",
+        "ms": 210000
+      }
+    ]
+  },
+  {
+    "id": "obj-mwj975tooxsz",
+    "name": "Toolbox",
+    "source": "lux3d",
+    "partsUrl": "/api/file/obj-mwj975tooxsz/parts.glb",
+    "wholeUrl": "/api/file/obj-mwj975tooxsz/whole.glb",
+    "rig": {
+      "links": [
+        {
+          "name": "body",
+          "meshUrl": "/api/file/obj-mwj975tooxsz/rig/link-0.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "lid",
+          "meshUrl": "/api/file/obj-mwj975tooxsz/rig/link-1.glb",
+          "xyz": [
+            0,
+            0,
+            0
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "joints": [
+        {
+          "name": "lid_joint",
+          "type": "revolute",
+          "parent": "body",
+          "child": "lid",
+          "xyz": [
+            -0.217578,
+            0.17350358,
+            -0.101123
+          ],
+          "rpy": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            -0.999982,
+            0.005859,
+            -0.001252
+          ],
+          "lower": 0,
+          "upper": 3.14
+        }
+      ]
+    },
+    "sizeMm": 450,
+    "prompt": "A blue metal toolbox with a hinged lid, two front latches and a carry handle on top",
+    "motionPrompt": "The lid swings open on its rear hinge and closes again",
+    "author": "Daily Teardown",
+    "createdAt": 1794833253786,
+    "stages": [
+      {
+        "name": "generate",
+        "label": "Text to 3D model",
+        "ms": 110761
+      },
+      {
+        "name": "split",
+        "label": "Split into parts",
+        "ms": 103807
+      },
+      {
+        "name": "animate",
+        "label": "Articulation",
+        "ms": 154397
+      }
+    ]
+  }
+]
