@@ -38,21 +38,30 @@ function writeJson(file: string, value: unknown): Promise<void> {
 
 let seeded: Promise<void> | null = null;
 
+const SEED_MARK = path.join(DATA_DIR, ".seed-version");
+
 /**
  * A fresh server starts with an empty data folder. The objects that ship with
  * the project are copied in once so the daily puzzle works from the first request.
+ * When the shipped files change (seed/VERSION), they replace the stored copies;
+ * objects.json is left alone because it also lists what visitors have made.
  */
 function ensureSeed(): Promise<void> {
   return (seeded ??= (async () => {
     try {
-      await fs.access(OBJECTS);
+      const want = (await fs.readFile(path.join(SEED_DIR, "VERSION"), "utf8").catch(() => "1")).trim();
+      const have = (await fs.readFile(SEED_MARK, "utf8").catch(() => "")).trim();
+      const fresh = await fs.access(OBJECTS).then(
+        () => false,
+        () => true,
+      );
+      if (!fresh && have === want) return;
+      await fs.mkdir(FILES_DIR, { recursive: true });
+      await fs.cp(path.join(SEED_DIR, "files"), FILES_DIR, { recursive: true, force: true });
+      if (fresh) await fs.copyFile(path.join(SEED_DIR, "objects.json"), OBJECTS);
+      await fs.writeFile(SEED_MARK, want);
     } catch {
-      try {
-        await fs.mkdir(DATA_DIR, { recursive: true });
-        await fs.cp(SEED_DIR, DATA_DIR, { recursive: true, force: false, errorOnExist: false });
-      } catch {
-        // No seed folder: the game falls back to practice objects.
-      }
+      // No seed folder: the game falls back to practice objects.
     }
   })());
 }

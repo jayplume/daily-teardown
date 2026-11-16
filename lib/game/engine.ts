@@ -1,6 +1,10 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
+
+/** Stored models are meshopt-compressed (see lib/server/assets.ts). */
+const gltfLoader = () => new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { STLExporter } from "three/addons/exporters/STLExporter.js";
 import type { Difficulty, MotionRig, TeardownObject } from "../types";
@@ -219,16 +223,31 @@ export class TeardownEngine {
    * Loads one object, or several side by side as a "bench" whose parts all
    * end up in the same pile.
    */
-  async load(objects: TeardownObject[], difficulty: Difficulty): Promise<{ total: number; partCount: number }> {
+  async load(
+    objects: TeardownObject[],
+    difficulty: Difficulty,
+    onProgress?: (fraction: number) => void,
+  ): Promise<{ total: number; partCount: number }> {
     this.reset();
     this.difficulty = difficulty;
     this.slots = objects.map((_, i) => slotFor(i, objects.length));
 
+    // Each download reports its own share; the bar shows the average.
+    const shares: number[] = objects.map((o) => (o.source === "practice" ? 1 : 0));
+    const report = () => onProgress?.(shares.reduce((a, b) => a + b, 0) / shares.length);
+
     const roots = await Promise.all(
-      objects.map(async (object) => {
+      objects.map(async (object, i) => {
         if (object.source === "practice") return buildPractice(object.id);
         if (!object.partsUrl) throw new Error(`${object.name} has no parts file.`);
-        return { group: (await new GLTFLoader().loadAsync(object.partsUrl)).scene, motion: null };
+        const gltf = await gltfLoader().loadAsync(object.partsUrl, (e) => {
+          if (!e.lengthComputable || !e.total) return;
+          shares[i] = Math.min(1, e.loaded / e.total);
+          report();
+        });
+        shares[i] = 1;
+        report();
+        return { group: gltf.scene, motion: null };
       }),
     );
     if (this.disposed) return { total: 0, partCount: 0 };
@@ -573,7 +592,7 @@ export class TeardownEngine {
   }
 
   private async mountRig(rig: MotionRig, owner: number) {
-    const loader = new GLTFLoader();
+    const loader = gltfLoader();
     const links = new Map<string, THREE.Group>();
     await Promise.all(
       rig.links.map(async (link) => {

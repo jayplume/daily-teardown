@@ -3,19 +3,47 @@ import path from "node:path";
 import { unzipSync } from "fflate";
 import type { MotionRig } from "../types";
 
+/** Above this a model is slower to download than it is worth on a phone. */
+const MAX_TRIANGLES = 60000;
+
 /**
- * Lux3D returns 15–25 MB GLBs, mostly 4K PNG textures. Shrinking the textures
- * to 1K WebP makes objects load in a second or two on a phone.
+ * Lux3D returns 15–25 MB GLBs: 4K PNG textures and up to 300,000 triangles.
+ * Textures go to 1K WebP, dense meshes are simplified, and the geometry is
+ * meshopt-compressed, which brings an object down to a few hundred kilobytes.
  */
 export async function shrinkGlb(file: string): Promise<void> {
   try {
     const { NodeIO } = await import("@gltf-transform/core");
-    const { EXTTextureWebP } = await import("@gltf-transform/extensions");
-    const { textureCompress, dedup, prune } = await import("@gltf-transform/functions");
+    const { EXTTextureWebP, EXTMeshoptCompression, KHRMeshQuantization } = await import("@gltf-transform/extensions");
+    const { textureCompress, dedup, prune, weld, simplify, meshopt } = await import("@gltf-transform/functions");
+    const { MeshoptEncoder, MeshoptDecoder, MeshoptSimplifier } = await import("meshoptimizer");
     const sharp = (await import("sharp")).default;
-    const io = new NodeIO().registerExtensions([EXTTextureWebP]);
+    await Promise.all([MeshoptEncoder.ready, MeshoptDecoder.ready, MeshoptSimplifier.ready]);
+    const io = new NodeIO()
+      .registerExtensions([EXTTextureWebP, EXTMeshoptCompression, KHRMeshQuantization])
+      .registerDependencies({ "meshopt.encoder": MeshoptEncoder, "meshopt.decoder": MeshoptDecoder });
     const doc = await io.read(file);
-    await doc.transform(dedup(), prune(), textureCompress({ encoder: sharp, targetFormat: "webp", resize: [1024, 1024], quality: 82 }));
+    const root = doc.getRoot();
+
+    await doc.transform(dedup(), prune());
+
+    // Re-encoding a texture that is already small WebP only loses quality.
+    const heavy = root.listTextures().some((t) => t.getMimeType() !== "image/webp" || Math.max(...(t.getSize() ?? [0, 0])) > 1024);
+    if (heavy) {
+      await doc.transform(textureCompress({ encoder: sharp, targetFormat: "webp", resize: [1024, 1024], quality: 82 }));
+    }
+
+    let triangles = 0;
+    for (const mesh of root.listMeshes()) {
+      for (const prim of mesh.listPrimitives()) {
+        triangles += (prim.getIndices()?.getCount() ?? prim.getAttribute("POSITION")?.getCount() ?? 0) / 3;
+      }
+    }
+    if (triangles > MAX_TRIANGLES) {
+      await doc.transform(weld(), simplify({ simplifier: MeshoptSimplifier, ratio: MAX_TRIANGLES / triangles, error: 0.01 }));
+    }
+
+    await doc.transform(meshopt({ encoder: MeshoptEncoder, level: "medium" }));
     await io.write(file, doc);
   } catch (err) {
     // An unoptimised file still works; it is only slower to load.

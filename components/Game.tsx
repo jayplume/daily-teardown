@@ -58,6 +58,7 @@ export function Game({ object, members, daily, rival, decoys }: Props) {
   const timelineRef = useRef<number[]>([]);
 
   const [phase, setPhase] = useState<Phase>("loading");
+  const [loaded, setLoaded] = useState(0);
   const [error, setError] = useState("");
   const [difficulty, setDifficulty] = useState<Difficulty>(rival?.difficulty ?? "easy");
   const [mystery, setMystery] = useState(false);
@@ -136,8 +137,9 @@ export function Game({ object, members, daily, rival, decoys }: Props) {
     if (!engineReady || !engine) return;
     let live = true;
     setPhase("loading");
+    setLoaded(0);
     engine
-      .load(members, difficulty)
+      .load(members, difficulty, (f) => live && setLoaded(f))
       .then((info) => {
         if (!live) return;
         setTotal(info.total);
@@ -392,7 +394,21 @@ export function Game({ object, members, daily, rival, decoys }: Props) {
     <div className="game" data-phase={phase}>
       <canvas ref={canvasRef} className="game-canvas" aria-label={`3D view of ${title}`} />
 
-      {phase === "loading" && <p className="game-status">Setting out the parts…</p>}
+      {phase === "loading" && (
+        <div className="game-status" role="status">
+          <p>Setting out the parts…</p>
+          <div
+            className="loadbar"
+            role="progressbar"
+            aria-label="Loading the objects"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(loaded * 100)}
+          >
+            <span style={{ transform: `scaleX(${Math.max(0.03, loaded)})` }} />
+          </div>
+        </div>
+      )}
 
       {phase === "error" && (
         <div className="panel panel-start">
